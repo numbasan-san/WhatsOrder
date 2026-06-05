@@ -10,12 +10,16 @@ recent mods:
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+
 from routes import health_router
+from routes import auth_router
+
 import uvicorn
 
 app = FastAPI()
 
 app.include_router(health_router)
+app.include_router(auth_router)
 
 @app.exception_handler(404)
 async def not_found(request: Request, exc):

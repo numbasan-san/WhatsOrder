@@ -1,6 +1,6 @@
 
 """
-file: backend/app/main.py
+file: backend/app/routes/health.py
 author: Eddy M (2026/06/04)
 last mod: 2026/06/04.
 description: Endpoint de health check
