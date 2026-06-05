@@ -1,0 +1,78 @@
+# Entornos virtuales
+venv/
+env/
+.venv/
+.vscode/
+ENV/
+
+# Variables de entorno (contienen secretos)
+.env
+.env.local
+.env.production
+
+# Dependencias de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Dependencias de Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos de build / dist
+dist/
+build/
+*.egg-info/
+*.egg
+
+# IDEs y editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+*.log
+
+# Base de datos local (si no usas Docker)
+*.db
+*.sqlite
+*.sqlite3
+
+# Archivos de pruebas temporales
+test_*.py
+temp_*
+tmp/
+
+# Archivos de cobertura
+.coverage
+htmlcov/
+.tox/
+
+# Despliegue / cache
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Archivos de backup
+*.bak
+*.backup
+*.old
+
+# Secretos y claves
+*.pem
+*.key
+*.crt
+secrets/
+keys/
