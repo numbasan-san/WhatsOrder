@@ -1,132 +1,109 @@
-# WhatsOrder
+<a href="https://demo-nextjs-with-supabase.vercel.app/">
+  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
+  <h1 align="center">Next.js and Supabase Starter Kit</h1>
+</a>
 
-Sistema de automatizacion de pedidos por WhatsApp para grandes cadenas comerciales.
+<p align="center">
+ The fastest way to build apps with Next.js and Supabase
+</p>
 
-## Descripcion
+<p align="center">
+  <a href="#features"><strong>Features</strong></a> ·
+  <a href="#demo"><strong>Demo</strong></a> ·
+  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
+  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
+  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
+  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
+</p>
+<br/>
 
-WhatsOrder permite a retailers como Bravo, La Sirena o Jumbo activar un canal de delivery a domicilio via WhatsApp. Un agente de IA interpreta los mensajes de los clientes, consulta stock y precios contra el ERP, y genera borradores de pedido que los agentes de servicio al cliente (CSR) aprueban con un clic.
+## Features
 
-## Tecnologias
+- Works across the entire [Next.js](https://nextjs.org) stack
+  - App Router
+  - Pages Router
+  - Proxy
+  - Client
+  - Server
+  - It just works!
+- supabase-ssr. A package to configure Supabase Auth to use cookies
+- Password-based authentication block installed via the [Supabase UI Library](https://supabase.com/ui/docs/nextjs/password-based-auth)
+- Styling with [Tailwind CSS](https://tailwindcss.com)
+- Components with [shadcn/ui](https://ui.shadcn.com/)
+- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
+  - Environment variables automatically assigned to Vercel project
 
-- Backend: FastAPI (Python)
-- Frontend: React + Vite
-- Base de datos: PostgreSQL
-- Cache / Colas: Redis
-- IA: GPT API / Gemini API
-- Autenticacion: JWT + bcrypt
-- Contenedores: Docker
-- Despliegue: Railway / Render
+## Demo
 
-## Estructura del proyecto
-whatsorder/
-├── backend/ # FastAPI
-├── frontend/ # React + Vite
-├── database/ # Schema y seed
-├── docs/ # Documentacion
-└── docker-compose.yml # PostgreSQL + Redis
+You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
 
+## Deploy to Vercel
 
-## Requisitos previos
+Vercel deployment will guide you through creating a Supabase account and project.
 
-- Python 3.10+
-- Node.js 18+
-- Docker y Docker Compose
-- Git
+After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
 
-## Instalacion y ejecucion
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
 
-# WhatsOrder
+The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
 
-Sistema de automatizacion de pedidos por WhatsApp para grandes cadenas comerciales.
+If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
 
-## Descripcion
+## Clone and run locally
 
-WhatsOrder permite a retailers como Bravo, La Sirena o Jumbo activar un canal de delivery a domicilio via WhatsApp. Un agente de IA interpreta los mensajes de los clientes, consulta stock y precios contra el ERP, y genera borradores de pedido que los agentes de servicio al cliente (CSR) aprueban con un clic.
+1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
 
-## Tecnologias
+2. Create a Next.js app using the Supabase Starter template npx command
 
-- Backend: FastAPI (Python)
-- Frontend: React + Vite
-- Base de datos: PostgreSQL
-- Cache / Colas: Redis
-- IA: GPT API / Gemini API
-- Autenticacion: JWT + bcrypt
-- Contenedores: Docker
-- Despliegue: Railway / Render
+   ```bash
+   npx create-next-app --example with-supabase with-supabase-app
+   ```
 
-## Estructura del proyecto
+   ```bash
+   yarn create next-app --example with-supabase with-supabase-app
+   ```
 
-whatsorder/
-├── backend/           # FastAPI
-├── frontend/          # React + Vite
-├── database/          # Schema y seed
-├── docs/              # Documentacion
-└── docker-compose.yml # PostgreSQL + Redis
+   ```bash
+   pnpm create next-app --example with-supabase with-supabase-app
+   ```
 
-## Requisitos previos
+3. Use `cd` to change into the app's directory
 
-- Python 3.10+
-- Node.js 18+
-- Docker y Docker Compose
-- Git
+   ```bash
+   cd with-supabase-app
+   ```
 
-## Instalacion y ejecucion
+4. Rename `.env.example` to `.env.local` and update the following:
 
-### 1. Clonar el repositorio
+  ```env
+  NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR ANON KEY]
+  ```
+  > [!NOTE]
+  > This example uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, which refers to Supabase's new **publishable** key format.
+  > Both legacy **anon** keys and new **publishable** keys can be used with this variable name during the transition period. Supabase's dashboard may show `NEXT_PUBLIC_SUPABASE_ANON_KEY`; its value can be used in this example.
+  > See the [full announcement](https://github.com/orgs/supabase/discussions/29260) for more information.
 
-git clone https://github.com/tu-usuario/whatsorder.git
-cd whatsorder
+  Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
 
-### 2. Levantar base de datos y Redis con Docker
+5. You can now run the Next.js local development server:
 
-docker-compose up -d
+   ```bash
+   npm run dev
+   ```
 
-### 3. Configurar variables de entorno
+   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
 
-cd backend
-cp .env.example .env
-# Editar .env con tus credenciales
+6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
 
-### 4. Instalar dependencias del backend
+> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
 
-pip install -r requirements.txt
+## Feedback and issues
 
-### 5. Crear las tablas en la base de datos
+Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
 
-docker exec -i whatsorder_db psql -U whatsorder_user -d whatsorder_db < database/schema.sql
+## More Supabase examples
 
-### 6. Ejecutar el backend
-
-cd backend
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-
-### 7. Instalar dependencias del frontend
-
-cd frontend
-npm install
-
-### 8. Ejecutar el frontend
-
-npm run dev
-
-## Endpoints principales
-
-Metodo     | Endpoint                       | Descripcion
------------|--------------------------------|-----------------------------
-POST       | /api/v1/auth/login             | Iniciar sesion (JWT)
-GET        | /api/v1/orders                 | Listar pedidos
-GET        | /api/v1/orders/{id}            | Ver detalle de pedido
-PUT        | /api/v1/orders/{id}/approve    | Aprobar pedido
-PUT        | /api/v1/orders/{id}/reject     | Rechazar pedido
-GET        | /api/v1/products               | Listar productos
-GET        | /health                        | Estado del servicio
-
-## Estado del desarrollo
-
-Modulo                      | Estado
-----------------------------|-----------------
-Backend API                 | En desarrollo
-Autenticacion JWT           | En desarrollo
-Agente IA                   | En desarrollo
-Dashboard React             | En desarrollo
-Integracion WhatsApp        | Planificado
+- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
+- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
+- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
