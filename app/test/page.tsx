@@ -1,7 +1,8 @@
+"use client";
+
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 
-// Definir el tipo de producto
 type Product = {
   id: number;
   name: string;
