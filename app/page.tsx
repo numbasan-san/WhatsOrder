@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase/client';
+import { createClient } from '@/lib/supabase/client';
 
 export default function Home() {
   const [isConnected, setIsConnected] = useState(false);
@@ -11,7 +11,8 @@ export default function Home() {
   useEffect(() => {
     async function testConnection() {
       try {
-        // Probar conexión con Supabase
+        const supabase = createClient();
+        
         const { data, error } = await supabase
           .from('products')
           .select('*', { count: 'exact', head: true });
@@ -20,7 +21,7 @@ export default function Home() {
           setIsConnected(true);
           setProductsCount(data?.length || 0);
         }
-      } catch (err) { 
+      } catch (err) {
         console.error('Error de conexión:', err);
       } finally {
         setLoading(false);
@@ -72,6 +73,7 @@ export default function Home() {
   );
 }
 
+// Estilos (igual que antes)
 const styles = {
   container: {
     minHeight: '100vh',

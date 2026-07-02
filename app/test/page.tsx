@@ -27,13 +27,13 @@ export default function TestPage() {
 
   return (
     <div>
-      <h1>Productos</h1>
+      <h1>Productos (Mock)</h1>
       {loading ? (
         <p>Cargando...</p>
       ) : (
         <ul>
           {products.map((p) => (
-            <li key={p.id}>{p.name}</li>
+            <li key={p.id}>{p.name} - RD$ {p.price}</li>
           ))}
         </ul>
       )}

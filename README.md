@@ -1,109 +1,123 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# WhatsOrder
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+Sistema de automatización de pedidos por WhatsApp para grandes cadenas comerciales.
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+## Tecnologías
 
-## Features
+- Frontend + API: Next.js 15 (App Router)
+- Base de datos: Supabase (PostgreSQL)
+- Autenticación: Supabase Auth
+- Mensajería: Telegram Bot API
+- Estilos: Tailwind CSS
+- Despliegue: Vercel
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Proxy
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Password-based authentication block installed via the [Supabase UI Library](https://supabase.com/ui/docs/nextjs/password-based-auth)
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+## Requisitos previos
 
-## Demo
+- Node.js 18+
+- npm o yarn
+- Cuenta en Supabase (opcional para desarrollo offline)
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+## Configuración inicial
 
-## Deploy to Vercel
+### 1. Clonar el repositorio
 
-Vercel deployment will guide you through creating a Supabase account and project.
+git clone https://github.com/equipo/whatsorder.git
+cd whatsorder
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+### 2. Instalar dependencias
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+npm install
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+### 3. Configurar variables de entorno
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+Crea un archivo .env.local en la raíz del proyecto:
 
-## Clone and run locally
+NEXT_PUBLIC_SUPABASE_URL=https://tusitio.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=tu_clave_publica
+TELEGRAM_BOT_TOKEN=tu_token_de_telegram
+NEXT_PUBLIC_USE_MOCK=true
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+### 4. Ejecutar en desarrollo
 
-2. Create a Next.js app using the Supabase Starter template npx command
+npm run dev
 
-   ```bash
-   npx create-next-app --example with-supabase with-supabase-app
-   ```
+Abrir http://localhost:3000
 
-   ```bash
-   yarn create next-app --example with-supabase with-supabase-app
-   ```
+## Modo offline (sin Supabase)
 
-   ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
-   ```
+Si Supabase no está disponible o prefieres trabajar sin conexión:
 
-3. Use `cd` to change into the app's directory
+1. En .env.local, establecer:
+   NEXT_PUBLIC_USE_MOCK=true
 
-   ```bash
-   cd with-supabase-app
-   ```
+2. El sistema usará datos de prueba locales (mock) para productos y pedidos.
 
-4. Rename `.env.example` to `.env.local` and update the following:
+3. El proxy de autenticación se saltará la verificación de sesión.
 
-  ```env
-  NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR ANON KEY]
-  ```
-  > [!NOTE]
-  > This example uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, which refers to Supabase's new **publishable** key format.
-  > Both legacy **anon** keys and new **publishable** keys can be used with this variable name during the transition period. Supabase's dashboard may show `NEXT_PUBLIC_SUPABASE_ANON_KEY`; its value can be used in this example.
-  > See the [full announcement](https://github.com/orgs/supabase/discussions/29260) for more information.
+Para volver a usar Supabase real:
+NEXT_PUBLIC_USE_MOCK=false
 
-  Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
+## Despliegue en Vercel
 
-5. You can now run the Next.js local development server:
+### 1. Instalar Vercel CLI
 
-   ```bash
-   npm run dev
-   ```
+npm install -g vercel
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+### 2. Vincular y desplegar
 
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+vercel login
+vercel link
+vercel --prod
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+### 3. Variables de entorno en Vercel
 
-## Feedback and issues
+Agregar en Settings -> Environment Variables:
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+- NEXT_PUBLIC_SUPABASE_URL: URL de tu proyecto Supabase
+- NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: Clave pública de Supabase
+- TELEGRAM_BOT_TOKEN: Token del bot de Telegram
 
-## More Supabase examples
+## Integración con Telegram
 
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+### 1. Crear bot
+
+- Buscar @BotFather en Telegram
+- Enviar /newbot
+- Elegir nombre y nombre de usuario (termina en bot)
+- Guardar el token que te da BotFather
+
+### 2. Configurar webhook
+
+curl -F "url=https://tudominio.vercel.app/api/telegram/webhook" https://api.telegram.org/bot[TU_TOKEN]/setWebhook
+
+### 3. Verificar webhook
+
+https://api.telegram.org/bot[TU_TOKEN]/getWebhookInfo
+
+## Estructura del proyecto
+
+whatsorder/
+├── app/
+│   ├── api/telegram/webhook/route.ts    # Webhook de Telegram
+│   ├── auth/                            # Autenticación (login, registro, etc.)
+│   ├── protected/                       # Rutas protegidas (dashboard, etc.)
+│   └── page.tsx                         # Página principal
+├── lib/supabase/
+│   ├── client.ts                        # Cliente de Supabase (mock o real)
+│   ├── mock-client.ts                   # Datos de prueba para desarrollo offline
+│   └── server.ts                        # Cliente para Server Components
+├── proxy.ts                             # Middleware de autenticación
+├── .env.local                           # Variables de entorno (no subir a git)
+└── README.md
+
+## Scripts disponibles
+
+- npm run dev: Desarrollo con Turbopack
+- npm run build: Compilar para producción
+- npm start: Ejecutar en producción
+- npm run lint: Revisar código con ESLint
+
+## Licencia
+
+Proyecto académico – Proyecto Integrador II
+Equipo Aether Aegis

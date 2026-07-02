@@ -1,12 +1,17 @@
-import { createBrowserClient } from '@supabase/ssr'
+import { createBrowserClient } from '@supabase/ssr';
+import { createMockClient } from './mock-client';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabasePublishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
+// Flag para usar mock o real
+const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === 'true' || true; // ← Cambiar a 'false' cuando Supabase vuelva
 
-// Opción A: Exportar función (para quienes usan createClient)
 export function createClient() {
-  return createBrowserClient(supabaseUrl, supabasePublishableKey)
+  if (USE_MOCK) {
+    console.log('🔧 Usando cliente mock de Supabase');
+    return createMockClient();
+  }
+  
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
+  
+  return createBrowserClient(supabaseUrl, supabaseKey);
 }
-
-// Opción B: Exportar instancia directa (para quienes usan supabase)
-export const supabase = createBrowserClient(supabaseUrl, supabasePublishableKey)
