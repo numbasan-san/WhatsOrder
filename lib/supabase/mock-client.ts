@@ -50,18 +50,16 @@ const mockOrders = [
   }
 ];
 
-// Mock de la función 'from' de Supabase
-export function createMockClient() {
+// Mock de Supabase con tipo any
+export function createMockClient(): any {
   return {
     auth: {
-      // Login con email y password
-      signInWithPassword: async ({ email, password }: { email: string, password: string }) => {
+      signInWithPassword: async ({ email, password }: { email: string; password: string }) => {
         console.log(`Mock: signInWithPassword para ${email}`);
         
-        // Simular credenciales válidas
         if (email === 'test@test.com' && password === 'password123') {
           return {
-            data: { 
+            data: {
               user: { id: 'mock-user-id', email: 'test@test.com' },
               session: { access_token: 'mock-token', refresh_token: 'mock-refresh' }
             },
@@ -69,7 +67,6 @@ export function createMockClient() {
           };
         }
         
-        // Simular error de credenciales
         return {
           data: null,
           error: { message: 'Invalid login credentials' }
@@ -97,7 +94,6 @@ export function createMockClient() {
         return { data: { user: { id: 'mock-user-id', email: 'test@test.com' } }, error: null };
       },
       
-      // Cerrar sesión
       signOut: async () => {
         console.log('Mock: signOut');
         return { error: null };
@@ -151,7 +147,6 @@ export function createMockClient() {
         };
       }
       
-      // Para otras tablas
       return {
         select: () => ({ data: [], error: null }),
         insert: (data: any) => ({ data, error: null }),
