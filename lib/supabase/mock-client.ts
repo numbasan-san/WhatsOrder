@@ -53,13 +53,31 @@ const mockOrders = [
 // Mock de la función 'from' de Supabase
 export function createMockClient() {
   return {
+    auth: {
+      getSession: async () => ({
+        data: { session: { user: { id: 'mock-user-id', email: 'test@test.com' } } },
+        error: null
+      }),
+      getUser: async () => ({
+        data: { user: { id: 'mock-user-id', email: 'test@test.com' } },
+        error: null
+      }),
+      resetPasswordForEmail: async (email: string, options?: any) => {
+        console.log(`🔐 Mock: resetPasswordForEmail para ${email}`);
+        console.log(`🔐 Mock: redirectTo ${options?.redirectTo || 'no redirect'}`);
+        return { data: null, error: null };
+      },
+      updateUser: async (data: any) => {
+        console.log(`🔐 Mock: updateUser`, data);
+        return { data: { user: { id: 'mock-user-id', email: 'test@test.com' } }, error: null };
+      }
+    },
     from: (table: string) => {
       if (table === 'products') {
         return {
           select: (query?: string) => ({
             data: mockProducts,
             error: null,
-            // Para consultas específicas (ej. 'count')
             count: mockProducts.length
           }),
           insert: (data: any) => ({
@@ -107,16 +125,6 @@ export function createMockClient() {
         insert: (data: any) => ({ data, error: null }),
         update: (data: any) => ({ eq: () => ({ data, error: null }) })
       };
-    },
-    auth: {
-      getSession: async () => ({
-        data: { session: { user: { id: 'mock-user-id', email: 'test@test.com' } } },
-        error: null
-      }),
-      getUser: async () => ({
-        data: { user: { id: 'mock-user-id', email: 'test@test.com' } },
-        error: null
-      })
     }
   };
 }
