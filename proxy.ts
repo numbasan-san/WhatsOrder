@@ -24,14 +24,16 @@ export async function proxy(request: NextRequest) {
   }
 
   // Si la ruta es pública, permitir acceso
+  /*
   if (publicRoutes.some(route => path.startsWith(route))) {
     return NextResponse.next();
   }
+  */
 
   // Si no hay sesión (en modo real), redirigir al login
   // Aquí iría la lógica real con Supabase
-  const redirectUrl = new URL('/auth/login', request.url);
-  return NextResponse.redirect(redirectUrl);
+  // const redirectUrl = new URL('/auth/login', request.url);
+  // return NextResponse.redirect(redirectUrl);
 }
 
 export const config = {
