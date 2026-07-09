@@ -34,3 +34,11 @@ async function sendMessage(chatId: number, text: string) {
     body: JSON.stringify({ chat_id: chatId, text })
   });
 }
+export async function GET(request: NextRequest) {
+  return NextResponse.json({ 
+    status: 'ok', 
+    message: 'Webhook de Telegram funcionando correctamente',
+    method: 'GET',
+    note: 'Este endpoint recibe mensajes por POST'
+  });
+}

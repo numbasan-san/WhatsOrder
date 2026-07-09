@@ -17,14 +17,14 @@ export async function proxy(request: NextRequest) {
     '/api/test',
   ];
 
-  // Si la ruta es pública, permitir acceso
-  if (publicRoutes.some(route => path.startsWith(route))) {
-    return NextResponse.next();
-  }
-
   // Simular que siempre hay sesión (mock)
   // En desarrollo, permitir acceso a todas las rutas
   if (process.env.NEXT_PUBLIC_USE_MOCK === 'true') {
+    return NextResponse.next();
+  }
+
+  // Si la ruta es pública, permitir acceso
+  if (publicRoutes.some(route => path.startsWith(route))) {
     return NextResponse.next();
   }
 
