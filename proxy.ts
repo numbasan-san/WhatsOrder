@@ -3,8 +3,9 @@ import type { NextRequest } from 'next/server';
 
 export async function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
+  console.log(`Proxy: ${path}`); // ← Agregar log para depuración
 
-  // Rutas públicas (no requieren autenticación)
+  // Rutas públicas
   const publicRoutes = [
     '/auth/login',
     '/auth/sign-up',
@@ -13,27 +14,11 @@ export async function proxy(request: NextRequest) {
     '/auth/error',
     '/auth/confirm',
     '/auth/sign-up-success',
-    '/api/telegram/webhook',
+    '/api/telegram/webhook',  // Asegurar que está aquí
     '/api/test',
   ];
 
-  // Simular que siempre hay sesión (mock)
-  // En desarrollo, permitir acceso a todas las rutas
-  if (process.env.NEXT_PUBLIC_USE_MOCK === 'true') {
-    return NextResponse.next();
-  }
-
-  // Si la ruta es pública, permitir acceso
-  /*
-  if (publicRoutes.some(route => path.startsWith(route))) {
-    return NextResponse.next();
-  }
-  */
-
-  // Si no hay sesión (en modo real), redirigir al login
-  // Aquí iría la lógica real con Supabase
-  // const redirectUrl = new URL('/auth/login', request.url);
-  // return NextResponse.redirect(redirectUrl);
+  return NextResponse.next();
 }
 
 export const config = {
