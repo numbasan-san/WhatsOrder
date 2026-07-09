@@ -54,24 +54,56 @@ const mockOrders = [
 export function createMockClient() {
   return {
     auth: {
+      // Login con email y password
+      signInWithPassword: async ({ email, password }: { email: string, password: string }) => {
+        console.log(`Mock: signInWithPassword para ${email}`);
+        
+        // Simular credenciales válidas
+        if (email === 'test@test.com' && password === 'password123') {
+          return {
+            data: { 
+              user: { id: 'mock-user-id', email: 'test@test.com' },
+              session: { access_token: 'mock-token', refresh_token: 'mock-refresh' }
+            },
+            error: null
+          };
+        }
+        
+        // Simular error de credenciales
+        return {
+          data: null,
+          error: { message: 'Invalid login credentials' }
+        };
+      },
+      
       getSession: async () => ({
         data: { session: { user: { id: 'mock-user-id', email: 'test@test.com' } } },
         error: null
       }),
+      
       getUser: async () => ({
         data: { user: { id: 'mock-user-id', email: 'test@test.com' } },
         error: null
       }),
+      
       resetPasswordForEmail: async (email: string, options?: any) => {
-        console.log(`🔐 Mock: resetPasswordForEmail para ${email}`);
-        console.log(`🔐 Mock: redirectTo ${options?.redirectTo || 'no redirect'}`);
+        console.log(`Mock: resetPasswordForEmail para ${email}`);
+        console.log(`Mock: redirectTo ${options?.redirectTo || 'no redirect'}`);
         return { data: null, error: null };
       },
+      
       updateUser: async (data: any) => {
-        console.log(`🔐 Mock: updateUser`, data);
+        console.log(`Mock: updateUser`, data);
         return { data: { user: { id: 'mock-user-id', email: 'test@test.com' } }, error: null };
+      },
+      
+      // Cerrar sesión
+      signOut: async () => {
+        console.log('Mock: signOut');
+        return { error: null };
       }
     },
+    
     from: (table: string) => {
       if (table === 'products') {
         return {
