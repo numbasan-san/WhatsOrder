@@ -3,9 +3,19 @@ import type { NextRequest } from 'next/server';
 
 export async function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  console.log(`Proxy: ${path}`); // ← Agregar log para depuración
+  
+  // Modo mock o protección normal
+  if (process.env.NEXT_PUBLIC_USE_MOCK === 'true') {
+    console.log(`Modo mock: permitir "${path}"`);
+    return NextResponse.next();
+  }
 
-  // Rutas públicas
+  if (path === '/api/telegram/webhook' || path.startsWith('/api/telegram/webhook')) {
+    console.log('Webhook de Telegram: acceso permitido sin autenticación');
+    return NextResponse.next();
+  }
+
+  // Otras rutas públicas
   const publicRoutes = [
     '/auth/login',
     '/auth/sign-up',
@@ -14,11 +24,18 @@ export async function proxy(request: NextRequest) {
     '/auth/error',
     '/auth/confirm',
     '/auth/sign-up-success',
-    '/api/telegram/webhook',  // Asegurar que está aquí
     '/api/test',
   ];
 
-  return NextResponse.next();
+  if (publicRoutes.some(route => path.startsWith(route))) {
+    console.log(`Ruta pública: "${path}"`);
+    return NextResponse.next();
+  }
+
+  console.log(`Ruta protegida, redirigiendo: "${path}"`);
+  const redirectUrl = new URL('/auth/login', request.url);
+  redirectUrl.searchParams.set('redirectedFrom', path);
+  return NextResponse.redirect(redirectUrl);
 }
 
 export const config = {
