@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       const chatId = body.message.chat.id;
       const text = body.message.text || '[sin texto]';
       console.log(`Mensaje de ${chatId}: "${text}"`);
-      await sendMessage(chatId, `Recibí tu mensaje: "${text}"`);
+      await sendMessage(chatId, `Hola, usuario. Recibí tu mensaje: "${text}"`);
     }
     
     return NextResponse.json({ status: 'ok' });
@@ -28,7 +28,7 @@ async function sendMessage(chatId: number, text: string) {
   const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
   const response = await fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json' }, 
     body: JSON.stringify({ chat_id: chatId, text })
   });
   return response.json();
