@@ -2,11 +2,11 @@ import { createBrowserClient } from '@supabase/ssr';
 import { createMockClient } from './mock-client';
 
 // Flag para usar mock o real
-const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === 'true' || true; // ← Cambiar a 'false' cuando Supabase vuelva
+const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === 'true' || true;
 
 export function createClient() {
   if (USE_MOCK) {
-    console.log('🔧 Usando cliente mock de Supabase');
+    console.log('Usando cliente mock de Supabase');
     return createMockClient();
   }
   
